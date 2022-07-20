@@ -20,8 +20,11 @@ module.exports = function check(str, bracketsConfig) {
 
 	for (let i = 0; i < fullStr.length; i++) {
 		if (isClosedBracket(fullStr[i])) {
-			if (brackets[fullStr[i]] !== stack.pop())
-				console.log(stack)
+			if (brackets[fullStr[i]] === stack[stack.length - 1]) {
+				stack.pop();
+			} else {
+				return false;
+			}
 		} else if (fullStr[i] === "|" || fullStr[i] === "0" || fullStr[i] === "1" || fullStr[i] === "2" ||
 			fullStr[i] === "3" || fullStr[i] === "4" || fullStr[i] === "5" || fullStr[i] === "6" ||
 			fullStr[i] === "7" || fullStr[i] === "8" || fullStr[i] === "9") {
@@ -29,12 +32,10 @@ module.exports = function check(str, bracketsConfig) {
 				stack.pop();
 			} else {
 				stack.push(fullStr[i]);
-				console.log(stack)
 			}
 		}
 		else {
 			stack.push(fullStr[i]);
-			console.log(stack)
 		}
 	}
 
